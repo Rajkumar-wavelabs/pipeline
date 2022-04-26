@@ -16,7 +16,7 @@ pipeline {
         abot_ip = "172.16.5.60"
         testAgentIp = "172.16.5.70"
         resVerdict = "True"
-        mailRecipients = "testing@wavelabs.ai"
+        mailRecipients = "raj.kumar@wavelabs.ai"
     }
     stages {
         stage ('Build') {
@@ -40,7 +40,6 @@ pipeline {
                     } finally {
                         notifyBuild(currentBuild.result)
                         deleteDir()
-                    }
                     }
                 }
             }
@@ -117,7 +116,7 @@ pipeline {
             }
         }            
     }
-    def sendRestReq(def url, def method = 'GET', def data = null, type = null, headerKey = null, headerVal = null) {
+ def sendRestReq(def url, def method = 'GET', def data = null, type = null, headerKey = null, headerVal = null) {
   try {
         def response = null
         if (null == url || url.toString().trim().isEmpty()) return response
@@ -155,8 +154,8 @@ def uploadLogsToGit (packageVersion) {
         git "https://github.com/wavelabsai/firebaseagentreport.git"
         sh "cp ../testArtifact/logs/sut-logs/magma-epc/AMF1/mme.log mme-${packageVersion}.log"
         sh "cp ../testArtifact/logs/sut-logs/magma-epc/AMF1/syslog syslog-${packageVersion}"
-        sh "git config user.email 'tapas.mishra@wavelabs.ai'"
-        sh "git config user.name 'Tapas Mishra'"
+        sh "git config user.email 'raj.kumar@wavelabs.ai'"
+        sh "git config user.name 'Rajkumar-wavelabs'"
         sh "git add . && git commit -am 'Adding report files for the version ${packageVersion}'"
         withCredentials([gitUsernamePassword(credentialsId: 'github_token', gitToolName: 'Default')]) {
             sh "git push --set-upstream origin master"
